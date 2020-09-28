@@ -52,7 +52,7 @@ While breaking down applications into microservices, or discrete functional part
 Introducing Kubernetes
 ......................
 
-`Kubernetes <https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/>`_ is an container orchestration platform, open sourced by Google in 2014, that helps manage distributed, containerized applications at massive scale. According to Redmonk, 54 %of Fortune 100 companies are running Kubernetes in some form, with adoption coming from every sector.
+`Kubernetes <https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/>`_ is a container orchestration platform, open sourced by Google in 2014, that helps manage distributed, containerized applications at massive scale. According to Redmonk, 54 %of Fortune 100 companies are running Kubernetes in some form, with adoption coming from every sector.
 
 .. figure:: images/overview2.jpg
 
@@ -96,7 +96,7 @@ In this exercise you will create a development Kubernetes cluster with Nutanix K
 
 #. Click **Download Centos** to download the required OS image to Karbon.
 
-#. Once the download has completed, click **+ Create Kubernetes Cluster**.
+#. Once the download has completed, click **Clusters** in the sidebar on the left, then click **+ Create Kubernetes Cluster**.
 
 #. On the **Recommended Configurations** tab, select **Development Cluster** and click **Next**.
 
@@ -127,17 +127,17 @@ In this exercise you will create a development Kubernetes cluster with Nutanix K
 
 #. Click **Next**.
 
-   Next you can view the resources defined for each type of container host VMs (worker, master, and etcd). If desired, you are able to edit the resource allocations by clicking **Edit** next to each type.
+   In the Node COnfiguration section you can select with Network VLAN will be used for your Karbon Kuburnetes Cluster.  Do note that only IPAM enabled networks can be used and must have enough IP addresses available to deploy the necessary container host VMs.  You can also view the resources defined for each type of container host VMs (worker, master, and etcd). If desired, you are able to edit the resource allocations by clicking **Edit** next to each type.
 
    For this lab, you can leave the default values.
 
 #. Click **Next**.
 
-   Next you will configure the networking for both the host VMs and pods. Karbon utilizes `Flannel <https://github.com/coreos/flannel#flannel>`_ to provide layer 3 IPv4 network between multiple nodes within the Karbon cluster.
+   Next you will configure the networking for both the host VMs and pods. Karbon utilizes `Flannel <https://github.com/coreos/flannel#flannel>`_ to provide layer 3 IPv4 networking between multiple nodes within the Karbon cluster.
 
    Platforms like Kubernetes assume that each pod (container) has a unique, routable IP inside the cluster. The advantage of this model is that it removes the port mapping complexities that come from sharing a single host IP.
 
-   The **Service CIDR** defines the network range on which services (like etcd) are exposed. The **Pod CIDR** defines the network range used to IP pods. The default configuration allows for a maximum of 256 nodes with up to 256 pods per node.
+   The **Service CIDR Range** defines the network range on which services (like etcd) are exposed. The **Pod CIDR Range** defines the network range used to IP pods. The default configuration allows for a maximum of 256 nodes with up to 256 pods per node.
 
 #. On the **Network** tab, fill out the following fields:
 
@@ -152,18 +152,18 @@ In this exercise you will create a development Kubernetes cluster with Nutanix K
 #. On the **Storage Class** tab, fill out the following fields:
 
    - **Storage Class Name** - default-storageclass-*Initials* (initials in lowercase)
-   - **Prism Element Cluster** - *Your Nutanix Cluster IP*
+   - **Nutanix Cluster** - *Your Nutanix Cluster name*
    - **Nutanix Cluster Username** - admin
    - **Nutanix Cluster Password** - *Your password*
-   - **Reclaim Policy** - Delete (Default)
    - **Storage Container Name** - Default
+   - **Reclaim Policy** - Delete (Default)
    - **File System** - ext4 (Default)
 
    .. figure:: images/7.png
 
 #. Click **Create**.
 
-   Deployment of the cluster should take approximately 10 minutes. During this time, Karbon is pulling images from public image repositories for the **master**, **etcd**, and **worker** nodes, as well as **flannel**, the Nutanix Volumes plugin, and any additional Karbon plugins. Support for authenticated proxy and dark site image repositories will be added post-GA.
+   Deployment of the cluster should take approximately 10 minutes. During this time, Karbon is pulling images from the public image repositories for the **master**, **etcd**, and **worker** nodes, as well as **flannel**, the Nutanix Volumes plugin, and any additional Karbon plugins. Support for authenticated proxy and dark site image repositories will be added post-GA.
 
    Filtering VMs for *Initials*\ **-karbon** in **Prism Central** will display the master, etcd, and worker VMs provisioned by Karbon.
 
